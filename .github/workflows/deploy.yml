@@ -1,4 +1,4 @@
-﻿name: Deploy fraudguard
+name: Deploy fraudguard
 
 on:
   push:
@@ -30,10 +30,11 @@ jobs:
           VM_USER: ${{ secrets.WIKOLABS_VM_USER }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GHCR_USER: ${{ github.actor }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H "$VM_HOST" >> ~/.ssh/known_hosts 2>/dev/null
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$VM_USER@$VM_HOST" "echo '$GHCR_TOKEN' | docker login ghcr.io -u '$GHCR_USER' --password-stdin && docker pull ghcr.io/wikolabs/fraudguard:latest && (docker stop fraudguard 2>/dev/null; docker rm fraudguard 2>/dev/null; true) && docker run -d --name fraudguard -p 3034:3000 --restart unless-stopped ghcr.io/wikolabs/fraudguard:latest && echo 'Deployed fraudguard on port 3034'"
-
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$VM_USER@$VM_HOST" "echo '$GHCR_TOKEN' | docker login ghcr.io -u '$GHCR_USER' --password-stdin && docker pull ghcr.io/wikolabs/fraudguard:latest && (docker stop fraudguard 2>/dev/null; docker rm fraudguard 2>/dev/null; true) && docker run -d --name fraudguard -p 3034:3000 -e GROQ_API_KEY='$GROQ_API_KEY' -e GEMINI_API_KEY='$GEMINI_API_KEY' --restart unless-stopped ghcr.io/wikolabs/fraudguard:latest && echo 'Deployed fraudguard on port 3034'"
