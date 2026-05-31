@@ -1,0 +1,36 @@
+version: "3.9"
+
+# FraudGuard demo — production-ready POC.
+# 2 services orchestrated:
+#   - fraudguard (Next.js frontend on host port 3034)
+#   - fraudguard-backend (FastAPI Python, internal only on 8000)
+# Internal network so the frontend can reach the backend by service name.
+
+services:
+  fraudguard-backend:
+    image: ghcr.io/wikolabs/fraudguard-backend:latest
+    container_name: fraudguard-backend
+    restart: unless-stopped
+    environment:
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    networks:
+      - fraudguard-net
+
+  fraudguard:
+    image: ghcr.io/wikolabs/fraudguard:latest
+    container_name: fraudguard
+    restart: unless-stopped
+    ports:
+      - "3034:3000"
+    environment:
+      BACKEND_URL: "http://fraudguard-backend:8000"
+    depends_on:
+      - fraudguard-backend
+    networks:
+      - fraudguard-net
+
+networks:
+  fraudguard-net:
+    name: fraudguard-net
+    driver: bridge
