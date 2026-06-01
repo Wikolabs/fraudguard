@@ -7,6 +7,14 @@ import { useState } from "react";
 const P = {
   name: "FraudGuard",
   waPhone: "261386626100",
+  tools: [
+    { name: "Stripe", slug: "stripe" },
+    { name: "Neo4j", slug: "neo4j" },
+    { name: "Redis", slug: "redis" },
+    { name: "Apachekafka", slug: "apachekafka" },
+    { name: "Python", slug: "python" },
+    { name: "Docker", slug: "docker" },
+  ],
   palette: {
     mode: "dark" as "dark" | "light",
     bg: "#1A0F12",
@@ -248,6 +256,23 @@ export default function Page() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* TOOLS INTEGRATED — logos of the stack we operate for you */}
+      <section id="tools" className="wk-section" style={{ padding:"80px 40px", maxWidth:1100, margin:"0 auto" }}>
+        <SectionHead pal={pal} tag={lang==="fr"?"Outils integres":"Tools we operate"} title={lang==="fr"?"On opere <em>votre stack</em>, vous n'avez rien a apprendre":"We operate <em>your stack</em>, you don't have to learn it"} />
+        <div style={{ display:"flex", flexWrap:"wrap", justifyContent:"center", gap:12 }}>
+          {P.tools.map(tool => (
+            <div key={tool.slug} style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"10px 16px", background:pal.surface, border:`1px solid ${pal.border}`, borderRadius:100, fontSize:13, color:pal.txt1, fontWeight:600, transition:"transform .2s, border-color .2s" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`https://cdn.simpleicons.org/${tool.slug}/${pal.accent.replace('#','')}`} alt={tool.name} width={18} height={18} style={{ flexShrink:0 }} />
+              <span>{tool.name}</span>
+            </div>
+          ))}
+        </div>
+        <p style={{ textAlign:"center", color:pal.txt3, fontSize:12, marginTop:24, maxWidth:540, marginLeft:"auto", marginRight:"auto" }}>
+          {lang==="fr" ? "Vous n'avez pas a apprendre ces outils — on les opere pour vous. Vous payez l'abonnement, c'est dans votre Slack demain matin." : "You don't have to learn these tools — we operate them for you. You pay the subscription, it's in your Slack tomorrow morning."}
+        </p>
       </section>
 
       {/* PERSUASION — pathos / logos / ethos / solution */}
