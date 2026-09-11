@@ -37,18 +37,18 @@ export default function DemoPage() {
 
   const t = lang === "fr" ? {
     back: "Retour", title: "Démo", sub: PRODUCT + ", scoring temps réel de transaction",
-    desc: "Saisissez une transaction. L'agent IA produit une decision risk (approuver / challenge 3DS / bloquer) en moins de 80ms avec explainability. Aucun service externe contacté, c'est un POC qui montre la logique de production.",
+    desc: "Saisissez une transaction. L'agent IA produit une décision risk (approuver / challenge 3DS / bloquer) en moins de 80ms avec explainability. Aucun service externe contacté, c'est un POC qui montre la logique de production.",
     inputLabel: "Transaction a scorer", amountLabel: "Montant (EUR)", amountPh: "ex: 1289.00",
     methodLabel: "Moyen de paiement", countryLabel: "Pays livraison", contextLabel: "Contexte client (optionnel)",
     contextPh: "ex: 1ere transaction app mobile, fingerprint iPhone, IP Paris",
     generate: "Scorer la transaction", generating: "Scoring en cours...",
-    briefTitle: "Decision risk", emptyHint: "La decision s'affiche ici une fois générée.",
+    briefTitle: "Décision risk", emptyHint: "La décision s'affiche ici une fois générée.",
     sendStripe: "Pousser vers Stripe Radar", openSift: "Ouvrir case Sift Connect",
-    stripeMock: "Decision pushed vers Stripe Radar rule wkfg_v1 (mode démo, pas de connexion Stripe réelle)",
+    stripeMock: "Décision pushed vers Stripe Radar rule wkfg_v1 (mode démo, pas de connexion Stripe réelle)",
     siftMock: "Case ouverte dans Sift Connect queue manual-review (mode démo, pas d'API key réelle)",
     fallback: "Mode statique : la clé LLM sera ajoutée au prochain déploiement.",
     poweredBy: "Modèle :",
-    note: "DEMO POC, aucune connexion réelle a Stripe Radar, Sift, Adyen RevenueProtect, banque emettrice. L'IA invente une decision credible pour la démo.",
+    note: "DEMO POC, aucune connexion réelle a Stripe Radar, Sift, Adyen RevenueProtect, banque émettrice. L'IA invente une décision credible pour la démo.",
   } : {
     back: "Back", title: "Demo", sub: PRODUCT + ", real-time transaction scoring",
     desc: "Enter a transaction. The AI agent produces a risk decision (approve / 3DS challenge / block) in under 80ms with explainability. No external service contacted, this is a POC showing the production logic.",
